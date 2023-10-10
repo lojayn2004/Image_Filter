@@ -3,6 +3,7 @@
 using  namespace std;
 
 char filtersMenu(){
+    
     char userChoice;
 
     cout << "Please select a filter to apply or 0 to exit: \n";
@@ -43,7 +44,7 @@ int main()
 
     while(userChoice != '0'){
         if(userChoice == '1'){
-
+            loadImage();
         }
 
         userChoice = filtersMenu();
