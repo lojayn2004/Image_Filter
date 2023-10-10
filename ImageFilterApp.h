@@ -16,4 +16,26 @@ void blurImage();
 
 void skewVertically(int degreeOfSkeweness);
 
+void blackAndWhiteImage();
+
+void flipImage();
+
+void verticalFlip();
+
+void horizontalFlip();
+
+void mirrorImage();
+
+void leftHalfMirror();
+
+void rightHalfMirror();
+
+void upperHalfMirror();
+
+void lowerHalfMirror();
+
+void cropImage();
+
+void detectEdge();
+
 #endif //IMAGEFILTERAPP_H
