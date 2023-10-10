@@ -202,3 +202,192 @@ void skewVertically(double angle)
         taken += decRate;
     }
 }
+
+//===================================================== Filter 1 =======================================================
+
+// Function to convert an image to black and white
+void blackAndWhiteImage() {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            // Check pixel intensity; if greater than 127, set to white (255), otherwise set to black (0)
+            if (image[i][j] > 127) {
+                image[i][j] = 255; // White
+            } else {
+                image[i][j] = 0;   // Black
+            }
+        }
+    }
+}
+
+//===================================================== Filter 4 =======================================================
+
+// Function to flip the image either vertically or horizontally based on user choice
+void flipImage() {
+    char c;
+    cout << "Enter 'v' for vertical flip or 'h' for horizontal flip ^_^ : ";
+    cin >> c;
+
+    if (c == 'h')
+    {
+        horizontalFlip();
+    }
+    else if (c == 'v')
+    {
+        verticalFlip();
+    } else
+    {
+        cout << "Invalid direction. Please enter 'h' or 'v'.\n" ; // Display a message for an invalid choice
+    }
+}
+
+// Function to flip the image horizontally by reversing the order of pixels
+void horizontalFlip() {
+    for (int i = 0; i < SIZE ; i++) {
+        for (int j = 0; j < SIZE/2; j++) {
+            // Swap the pixel values between the left and right sides of the image
+            swap(image[i][j], image[i][SIZE-1-j]);
+        }
+    }
+}
+// Function to flip the image vertically by reversing the order of pixels
+void verticalFlip() {
+    for (int i = 0; i < SIZE/2; i++)
+    {
+        for (int j = 0; j < SIZE ; j++)
+        {
+            // Swap the pixels value between the top and bottom halves of the image
+            swap(image[i][j], image[SIZE - 1 - i][j]);
+        }
+    }
+}
+
+//===================================================== Filter 7 ======================================================
+void detectEdge() {
+    int sum = 0;
+    // Calculate the sum of all pixel values in the image
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            sum += image[i][j];
+        }
+    }
+    // Calculate the average pixel value
+    int avg = (sum / (SIZE * SIZE));
+    // Iterate over the image for edge detection
+    for (int i = 0; i < SIZE - 1; ++i) {
+        for (int j = 0; j < SIZE - 1; ++j) {
+            // Compare neighboring pixel values to the average for edge detection
+            if (image[i][j] > avg && image[i][j + 1] <= avg || image[i][j] <= avg && image[i][j + 1] > avg)
+            {
+                image[i][j] = 0; // Set pixel to 0 if it's part of an edge
+            }
+            else if (image[i][j] <= avg && image[i + 1][j] > avg || image[i][j] > avg && image[i + 1][j] <= avg)
+            {
+                image[i][j] = 0; // Set pixel to 0 if it's part of an edge
+            }
+            else
+            {
+                image[i][j] = 255; // Set pixel to 255 if it's not part of an edge
+            }
+        }
+    }
+}
+
+//===================================================== Filter a =======================================================
+
+void mirrorImage() {
+    // Get the user's choice for the mirror side (left, right, upper, or lower)
+    char choice;
+    cout << "Do you want left, right, upper, or lower Mirror side?\n";
+    cout << "Enter the first letter of your choice (e.g., 'l' for left) except lower enter 'd' : ";
+    cin >> choice;
+
+    // Apply the mirror filter based on the user's choice
+    if (choice == 'l') {
+        leftHalfMirror();
+    }
+    else if (choice == 'r')
+    {
+        rightHalfMirror();
+    }
+    else if (choice == 'u')
+    {
+        upperHalfMirror();
+    } else if (choice == 'd') {
+        lowerHalfMirror();
+    }
+    else
+    {
+        cout << "Invalid direction. Please enter 'l', 'r', 'u', or 'd'.\n";
+    }
+}
+
+// Function to mirror the left half of the image
+void leftHalfMirror() {
+    for (int x = 0; x < SIZE; x++) {
+        for (int y = 0; y < SIZE/2 ; y++) {
+            // Assign the pixel value of the current position
+            // to its mirror position on the opposite of the horizontal axis
+            image[x][SIZE - 1 - y] = image[x][y];
+        }
+    }
+}
+// Function to mirror the right half of the image
+void rightHalfMirror() {
+    for (int x = 0; x < SIZE; x++) {
+        for (int y = 0; y < SIZE/2 ; y++) {
+            // Assign the pixel value of the current position
+            // to its mirror position on the opposite of the horizontal axis
+            image[x][y] = image[x][SIZE - 1 - y];
+        }
+    }
+}
+
+// Function to mirror the upper half of the image
+void upperHalfMirror() {
+    for (int x = 0; x < SIZE/2; x++) {
+        for (int y = 0; y < SIZE; y++) {
+            // Assign the pixel value of the current position
+            // to its mirror position on the opposite side of the vertical axis
+            image[SIZE - 1 - x][y] = image[x][y];
+        }
+    }
+}
+
+// Function to mirror the lower half of the image
+void lowerHalfMirror() {
+    for (int x = 0; x < SIZE/2; x++) {
+        for (int y = 0; y < SIZE; y++) {
+            // Assign the pixel value of the current position
+            // to its mirror position on the opposite side of the vertical axis
+            image[x][y] = image[SIZE - 1 - x][y];
+        }
+    }
+}
+
+//===================================================== Filter d ======================================================
+void cropImage() {
+    int x, y, l, w;
+    bool valid = true;
+    // Get user input for the cropping parameters
+    cout << "Please enter the values of: x, y, l, and w: ";
+    cin >> x >> y >> l >> w;
+
+    // Check if the cropping parameters are within bounds
+    if (x < 0 || x >= SIZE || y < 0 || y >= SIZE || l <= 0 || w <= 0 || x + l > SIZE || y + w > SIZE)
+    {
+        cout << "Invalid crop dimensions. Make sure they fit within the image.\n";
+        valid = false;
+    }
+    if(valid){
+        //Iterate over the image
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                // Check if the current pixel is outside the defined crop region
+                if (i < x || i > x + l || j < y || j > y + w) {
+                    // Set pixels outside the crop region to white (pixel value 255)
+                    image[i][j] = 255;
+                }
+            }
+        }
+    }
+}
