@@ -40,4 +40,6 @@ void detectEdge();
 
 voide invertImage();
 
+void  rotateImage();
+
 #endif //IMAGEFILTERAPP_H
