@@ -42,4 +42,6 @@ voide invertImage();
 
 void  rotateImage();
 
+void  shuffleImage();
+
 #endif //IMAGEFILTERAPP_H
