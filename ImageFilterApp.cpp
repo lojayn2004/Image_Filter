@@ -508,3 +508,87 @@ void shuffleImage () {
         }
     }
 }
+
+//===================================================== Filter 8 =======================================================
+
+
+void enlargeImage() {
+
+unsigned char temp[256][256];//new matrix to carry changes occurs in loaded image
+int m=0,k=0;
+int a;
+cout<<"Enter quarter to enlarge it :";
+cin>>a;
+switch(a) {
+    case 1: {
+        //ENLARGING FIRST QUARTER
+        for (int i = 0; i < SIZE/2; ++i) {
+            k = 0;
+            for (int j = 0; j < SIZE/2; ++j) {
+               //representing one pixel in four square-shaped pixels
+                temp[m][k] = image[i][j];
+                temp[m][k + 1] = image[i][j];
+                temp[m + 1][k] = image[i][j];
+                temp[m + 1][k + 1] = image[i][j];
+                k += 2;
+            }
+            m += 2;
+        }
+        break;
+    }
+    case 2: {
+        //enlarging second quarter
+        for (int i = 0; i < SIZE/2; ++i) {
+            k = 0;
+            for (int j = SIZE/2; j < SIZE; ++j) {
+                //representing one pixel in four square-shaped pixels
+                temp[m][k] = image[i][j];
+                temp[m][k + 1] = image[i][j];
+                temp[m + 1][k] = image[i][j];
+                temp[m + 1][k + 1] = image[i][j];
+                k += 2;
+            }
+            m += 2;
+        }
+        break;
+    }
+    case 3: {
+        //THIRD QUARTER
+        for (int i = SIZE/2; i < SIZE; ++i) {
+            k = 0;
+            for (int j = 0; j < SIZE/2 ; ++j) {
+            //representing one pixel in four square-shaped pixels
+                temp[m][k] = image[i][j];
+                temp[m][k + 1] = image[i][j];
+                temp[m + 1][k] = image[i][j];
+                temp[m + 1][k + 1] = image[i][j];
+                k += 2;
+            }
+            m += 2;
+        }
+        break;
+    }
+    case 4: {
+        //TO enlarge fourth quarter
+        for (int i = SIZE/2; i < SIZE; ++i) {
+            k = 0;
+            for (int j = SIZE/2; j < SIZE; ++j) {
+                //representing one pixel in four square-shaped pixels
+                temp[m][k] = image[i][j];
+                temp[m][k + 1] = image[i][j];
+                temp[m + 1][k] = image[i][j];
+                temp[m + 1][k + 1] = image[i][j];
+                k += 2;
+            }
+            m += 2;
+        }
+        break;
+    }
+}
+for(int i=0;i<SIZE;++i){
+    for(int j=0;j<SIZE;++j){
+        //to copy new matrix in loaded image
+        image[i][j] = temp[i][j];
+    }
+}
+}	
