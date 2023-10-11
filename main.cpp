@@ -75,6 +75,9 @@ int main()
         else if(userChoice == '6'){
              rotateImage();
         }
+        else if(userChoice == 'b'){
+            shuffleImage();
+        }
         else if(userChoice == 'l'){
             char imageName[100];
             cout << "Enter new Image Name: \n";
