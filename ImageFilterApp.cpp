@@ -451,3 +451,59 @@ break;
         }                                           
     }
 }
+
+
+void shuffleImage () {
+    cout<<"Enter the order of the image : ";
+    int n = 4, a = 0, cnt = 1,m=0,k=0,l=0,o=0;
+    unsigned char temp[SIZE][SIZE];
+    for (int p = 0; p < n; ++p) {
+        cin >> a;// for entering order of image
+        if (cnt == 1)m = 0,k = 0,l=m,o=k; //to fill new matrix with pixels
+        else if (cnt == 2)m=0,k=SIZE/2,l=m,o=k;
+        else if(cnt ==3)m=SIZE/2,k=0,l=m,o=k;
+        else m=SIZE/2,k=SIZE/2,l=m,o=k;
+        ++cnt;
+        if(a==1) {
+            //first quarter
+            for (int i = 0, l = m; i < SIZE/2; ++i, ++l) {
+                for (int j = 0, o = k; j < SIZE/2; ++j, ++o) {
+                    temp[l][o] = image[i][j];
+                }
+            }
+        }
+         else if(a==2){
+             //second quarter
+                for(int i=0,l=m;i<SIZE/2;++i,++l){
+                    for(int j=SIZE/2,o=k;j<SIZE;++j,++o){
+                        temp[l][o] = image[i][j];
+                    }
+                }
+
+            }
+         else if(a==3){
+             //third quarter
+                for(int i=SIZE/2,l=m;i<SIZE;++i,++l){
+                    for(int j=0,o=k;j< SIZE/2;++j,++o){
+                        temp[l][o] = image[i][j];
+                    }
+                }
+
+            }
+         else{
+             //fourth quater
+                for(int i=SIZE/2,l=m;i<SIZE;++i,++l){
+                    for(int j=SIZE/2,o=k;j<SIZE;++j,++o){
+                        temp[l][o] = image[i][j];
+                    }
+                }
+
+            }
+    }
+    for(int i=0;i<SIZE;++i){
+        for(int j=0;j<SIZE;++j){
+            //to copy new matrix in loaded image
+            image[i][j] = temp[i][j];
+        }
+    }
+}
