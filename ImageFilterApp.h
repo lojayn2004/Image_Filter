@@ -38,4 +38,6 @@ void cropImage();
 
 void detectEdge();
 
+voide invertImage();
+
 #endif //IMAGEFILTERAPP_H
