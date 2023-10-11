@@ -391,3 +391,13 @@ void cropImage() {
         }
     }
 }
+//===================================================== Filter 2 =======================================================
+//function to invert color of image to the other color
+void invertImage() {
+    for(int i = 0 ; i < SIZE ; ++i ){
+        for(int  j = 0  ; j < SIZE ; ++j ){
+            image[i][j ]= 255 - image[i][j] ; //invert image pixel from black to white and vice versa
+
+        }
+    }
+}
