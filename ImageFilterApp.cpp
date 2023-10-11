@@ -401,3 +401,53 @@ void invertImage() {
         }
     }
 }
+
+//===================================================== Filter 5 =======================================================
+// function for image rotation
+void   rotateImage() {
+    unsigned char temp = 0;
+    cout <<"Enter angle of rotation :";         
+    int n;                                        
+    cin >> n;       // input rotation angle degree                              
+    switch (n) {                                  
+        case 90 : {                               
+            //for rotation image by 90 degree
+            for(int i = 0 ; i < SIZE/2 ; ++i ){         
+                for(int j = i ; j < SIZE - i - 1 ; ++j ){
+                    temp = image[i][j];//set value in image to another value 
+                    image[i][j] = image[j][SIZE-i-1];    //changing images pixel
+                    image[j][SIZE-i-1] = image[SIZE-i-1][SIZE-j-1];
+                    image[SIZE-i-1][SIZE-j-1] = image[SIZE-1-j][i];
+                    image[SIZE-1-j][i] = temp;
+                
+                }                                             
+            }                                             
+            break;                                           
+        }
+        case 180 : {
+            //for rotation image 180 degree
+            for (int i = 0; i < SIZE / 2; ++i) { // will loop on half rows
+                for (int j = 0; j < SIZE; ++j) { // will loop on all coloum to copy upper image to lower in opposite side and vice
+                    temp = image[i][j];
+                    image[i][j] = image[SIZE - i - 1][SIZE - j - 1];
+                    image[SIZE - i - 1][SIZE - j - 1] = temp;
+                }
+            }
+            break;                                         
+        }                                                    
+        case 270 : {        
+            //this loop for rotating image by 270 degree
+            for(int i = 0 ; i < SIZE/2 ; ++i ){                
+                for(int j = i ; j<SIZE - i - 1 ;++j){
+                    temp = image[i][j];
+                    image[i][j] = image[SIZE-1-j][i];//chaning pixel value in it to other pixel value
+                    image[SIZE-1-j][i] = image[SIZE-i-1][SIZE-j-1];
+                    image[SIZE-i-1][SIZE-j-1] = image[j][SIZE-1-i]
+                    image[j][SIZE-1-i] = temp;
+    
+                }   
+            }                                        
+break;                                  
+        }                                           
+    }
+}
