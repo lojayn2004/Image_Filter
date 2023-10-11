@@ -75,6 +75,9 @@ int main()
         else if(userChoice == '6'){
              rotateImage();
         }
+        else if(userChoice == '8'){
+            enlargeImage();
+        }
         else if(userChoice == 'b'){
             shuffleImage();
         }
