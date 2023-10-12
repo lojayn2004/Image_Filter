@@ -17,9 +17,9 @@ void mirrorImage();
 
 void leftHalfMirror();
 
-void  rightHalfMirror();
+void rightHalfMirror();
 
-void  upperHalfMirror();
+void upperHalfMirror();
 
 void lowerHalfMirror();
 
