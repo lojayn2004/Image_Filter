@@ -12,7 +12,7 @@ unsigned char secondColoredImage[SIZE][SIZE][RGB];
 
 
 //============================================= Filter 1 ===============================================================
-void BlackAndWhite() {
+void blackAndWhite() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             int avg = 0;
@@ -53,7 +53,7 @@ void mergeTwoColoredImages(char imageFileName[])
 
 
 //=========================================== Filter 4 =================================================================
-void FlipImage() {
+void flipImage() {
     char c;
     cout << "Enter 'v' or 'h' as you want ^_^ :";
     cin >> c;
@@ -65,7 +65,7 @@ void FlipImage() {
         cout << "invalid choice\n";
     }
 }
-void HorizontalFlip() {
+void horizontalFlip() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE / 2; j++) {
             // Swap the pixels from the left half with their corresponding pixels in the right half
@@ -75,7 +75,7 @@ void HorizontalFlip() {
         }
     }
 }
-void VerticalFlip() {
+void verticalFlip() {
     for (int i = 0; i < (SIZE / 2); ++i) {
         for (int j = 0; j < SIZE; ++j) {
             for (int k = 0; k < RGB; ++k) {
@@ -211,7 +211,7 @@ void shrinkColoredImage(int shrinkScale){
 }
 
 //=========================================== Filter a =================================================================
-void MirrorImage() {
+void mirrorImage() {
     // get the user's choice
     char choice;
     cout << "Do you want left, right, upper, or lower Mirror side?\n";
@@ -220,22 +220,26 @@ void MirrorImage() {
     // Apply the mirror filter based on user's choice
     if (choice == 'l') {
         // Mirror the left half of the image to the right
-        Left_Half_Mirror();
-    } else if (choice == 'r') {
+        leftHalfMirror();
+    } 
+    else if (choice == 'r') {
         // Mirror the right half of the image to the left
-        Right_Half_Mirror();
-    } else if (choice == 'u') {
+        rightHalfMirror();
+    }
+    else if (choice == 'u') {
         // Mirror the upper half of the image to the lower half
-        Upper_Half_Mirror();
-    } else if (choice == 'd') {
+        upperHalfMirror();
+    }
+    else if (choice == 'd') {
         // Mirror the lower half of the image to the upper half
-        Lower_Half_Mirror();
-    } else {
+        lowerHalfMirror();
+    } 
+    else {
         cout << "Invalid direction. Please enter 'l', 'r', 'u', or 'd'.\n";
     }
 }
 
-void Left_Half_Mirror() {
+void leftHalfMirror() {
     // Iterate through the rows of the image
     for (int x = 0; x < SIZE; x++) {
         // Iterate through the columns in the left half of the image
@@ -249,7 +253,7 @@ void Left_Half_Mirror() {
     }
 }
 
-void Right_Half_Mirror() {
+void rightHalfMirror() {
     // Iterate through the rows of the image
     for (int x = 0; x < SIZE; x++) {
         // Iterate through the columns in the right half of the image
@@ -263,7 +267,7 @@ void Right_Half_Mirror() {
     }
 }
 
-void Lower_Half_Mirror() {
+void lowerHalfMirror() {
     // Iterate through the rows in the lower half of the image
     for (int x = 0; x < SIZE / 2; x++) {
         // Iterate through all the columns
@@ -277,7 +281,7 @@ void Lower_Half_Mirror() {
     }
 }
 
-void Upper_Half_Mirror() {
+void upperHalfMirror() {
     for (int x = SIZE / 2; x < SIZE; x++) {
         // Iterate through all the rows in the top half of the image
         for (int y = 0; y < SIZE; y++) {
@@ -329,7 +333,7 @@ void blurColoredImage()
 }
 
 //=========================================== Filter d =================================================================
-void CropImage() {
+void cropImage() {
     int x, y, l, w;
     // Get user input for the cropping parameters
     cout << "Please enter the values of x, y, l, and w: ";
