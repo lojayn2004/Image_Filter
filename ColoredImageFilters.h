@@ -13,6 +13,12 @@ void darkenColoredImage();
 
 void lightenColoredImage();
 
+void flipImage();
+
+void verticalFlip();
+
+void horizontalFlip(); 
+
 void mirrorImage();
 
 void leftHalfMirror();
