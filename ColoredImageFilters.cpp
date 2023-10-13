@@ -35,6 +35,20 @@ void blackAndWhite() {
     }
 }
 
+//============================================= Filter 2 ===============================================================
+
+//TO INVERT COLORED IMAGE
+void invertImage() {
+    for(int i=0;i<SIZE;++i){
+        for(int j=0;j<SIZE;++j) {
+            for (int h = 0; h < 3; ++h) {
+                //TO LOOP 3 TIMES ON THREE COLORS
+                image[i][j][h] = 255 - image[i][j][h]; //CHANGES COLOR OF PIXEL TO ITS INVERSE 
+            }
+        }
+    }
+}
+
 //============================================= Filter 3 ===============================================================
 void mergeTwoColoredImages(char imageFileName[])
 {
@@ -85,7 +99,63 @@ void verticalFlip() {
     }
 }
 
-//=========================================== Filter 5 =================================================================
+//============================================= Filter 5 ===============================================================
+
+//TO ROTATE IMAGE BY 90 OR 180 OR 270 DEGREES
+void rotateImage() {
+    unsigned char temp = 0;
+    cout <<"Enter angle of rotation :";
+    int n;
+    cin >> n;
+    switch (n) {
+        case 90 : {
+            //TO ROTATE IMAGE BY 90 DEGREE
+            for(int i=0;i<SIZE/2;++i){
+                for(int j=i;j<SIZE-i-1;++j) {
+                    for (int h = 0; h < 3; ++h) {
+                        temp = image[i][j][h];
+                        image[i][j][h] = image[j][SIZE - i - 1][h];
+                        image[j][SIZE - i - 1][h] = image[SIZE - i - 1][SIZE - j - 1][h];
+                        image[SIZE - i - 1][SIZE - j - 1][h] = image[SIZE - 1 - j][i][h];
+                        image[SIZE - 1 - j][i][h] = temp;
+                    }
+                }
+            }
+            break;
+        }
+        case 180 : {
+            // TO ROTATE IMAGE BY 180 DEGREE
+            for (int i = 0; i < SIZE / 2; ++i) {
+                for (int j = 0; j < SIZE; ++j) {
+                    for (int h = 0; h < 3; ++h) {
+                        temp = image[i][j][h]; // TO CHANGE PIXEL IN TO THE OOPOSITE CROSSPONDING PIXEL
+                        image[i][j][h] = image[SIZE - i - 1][SIZE - j - 1][h];
+                        image[SIZE - i - 1][SIZE - j - 1][h] = temp;
+                    }
+                }
+            }
+            break;
+        }
+        case 270 : {
+            // TO ROTATE IMAGE BY 270 DEGREE
+            for(int i=0;i<SIZE/2;++i){
+                for(int j=i;j<SIZE -i-1;++j) {
+                    for (int h = 0; h < 3; ++h) {
+                        //CHANGE PIXELS WITH EACH OTHER TO ROTATE PART BY PART
+                        temp = image[i][j][h];
+                        image[i][j][h] = image[SIZE - 1 - j][i][h];
+                        image[SIZE - 1 - j][i][h] = image[SIZE - i - 1][SIZE - j - 1][h];
+                        image[SIZE - i - 1][SIZE - j - 1][h] = image[j][SIZE - 1 - i][h];
+                        image[j][SIZE - 1 - i][h] = temp;
+                    }
+                }
+            }
+            break;
+        }
+    }
+}
+
+//=========================================== Filter 6 =================================================================
 void changeColoredBrightness(){
     char userChoice;
     cout << "Do you want to (d)arken or (l)ighten?";
@@ -179,6 +249,97 @@ void detectEdges()
             }
         }
     }
+}
+
+//=========================================== Filter 8 =================================================================
+
+// TO ENLARGE IMAGE
+void enlargeImage() {
+    unsigned char temp[SIZE][SIZE][RGB];
+    int m=0,k=0;
+    int a;
+    cout<<"Enter quarter to enlarge it :";
+    cin>>a;
+    switch(a) {
+        case 1: {
+            // TO COPY PART ONE
+            for (int i = 0; i < SIZE/2; ++i) {
+                k = 0;
+                for (int j = 0; j < SIZE/2; ++j) {
+                    for (int h = 0; h < RGB; ++h) {
+                        // TO REPRESENT ONE PIXEL IN FOUR PIXEL
+                        temp[m][k][h] = image[i][j][h];
+                        temp[m][k + 1][h] = image[i][j][h];
+                        temp[m + 1][k][h] = image[i][j][h];
+                        temp[m + 1][k + 1][h] = image[i][j][h];
+                    }
+                    k+=2;
+                }
+                m += 2;
+            }
+            break;
+        }
+        case 2: {
+            // TO ENLARGE PART TWO
+            for (int i = 0; i < SIZE/2; ++i) {
+                k = 0;
+                for (int j = SIZE/2; j < SIZE; ++j) {
+                    for (int h = 0; h < RGB; ++h) {
+                        temp[m][k][h] = image[i][j][h];
+                        temp[m][k + 1][h] = image[i][j][h];
+                        temp[m + 1][k][h] = image[i][j][h];
+                        temp[m + 1][k + 1][h] = image[i][j][h];
+                    }
+                    k += 2;
+                }
+                m += 2;
+            }
+            break;
+        }
+        case 3: {
+            // TO ENLARGE PART THREE
+            for (int i = SIZE/2; i < SIZE; ++i) {
+                k = 0;
+                for (int j = 0; j < SIZE/2; ++j) {
+                    for (int h = 0; h < RGB; ++h) {
+                        temp[m][k][h] = image[i][j][h];
+                        temp[m][k + 1][h] = image[i][j][h];
+                        temp[m + 1][k][h] = image[i][j][h];
+                        temp[m + 1][k + 1][h] = image[i][j][h];
+                    }
+                    k += 2;
+                }
+                m += 2;
+            }
+            break;
+        }
+        case 4: {
+            // TO ENLARGE PART FOUR
+            for (int i = SIZE/2; i < SIZE; ++i) {
+                k = 0;
+                for (int j = SIZE/2; j < SIZE; ++j) {
+                    for(int h=0;h<RGB;++h) {
+                        temp[m][k][h] = image[i][j][h];
+                        temp[m][k + 1][h] = image[i][j][h];
+                        temp[m + 1][k][h] = image[i][j][h];
+                        temp[m + 1][k + 1][h] = image[i][j][h];
+                    }
+                    k += 2;
+                }
+                m += 2;
+            }
+            break;
+        }
+    }
+    for(int i=0;i<SIZE;++i){
+        for(int j=0;j<SIZE;++j) {
+            for (int h = 0; h < RGB; ++h) {
+                // TO COPY NEW MATRIX IN THE LOADED IMAGE
+                image[i][j][h] = temp[i][j][h];
+            }
+        }
+    }
+
 }
 
 //=========================================== Filter 9 =================================================================
@@ -289,6 +450,71 @@ void upperHalfMirror() {
             for (int k = 0; k < RGB; ++k) {
                 // Set the pixel at (x, y, k) to be the same as the pixel on the opposite side of the mirror
                 image[x][y][k] = image[SIZE - 1 - x][y][k];
+            }
+        }
+    }
+}
+
+// ========================================== Filter b =================================================================
+
+// REORDER ORDER OF IMAGE
+void shuffleImage() {
+    cout<<"Enter the order of the image : ";
+    int n = 4, a = 0, cnt = 1,m=0,k=0,l=0,o=0;
+    unsigned char temp[SIZE][SIZE][RGB];
+    for (int p = 0; p < n; ++p) {
+        cin >> a; // INPUT USER ORDER 
+        if (cnt == 1)m = 0,k = 0,l=m,o=k;// TO KNOW WHICH PART OF NEW MATRIX TO FILL IN
+        else if (cnt == 2)m=0,k=SIZE/2,l=m,o=k;
+        else if(cnt ==3)m=SIZE/2,k=0,l=m,o=k;
+        else m=SIZE/2,k=SIZE/2,l=m,o=k;
+        ++cnt;
+        // ORDER OF IMAGE 
+        if(a==1) {
+            for (int i = 0, l = m; i < SIZE/2; ++i, ++l) {
+                for (int j = 0, o = k; j < SIZE/2; ++j, ++o) {
+                    for (int h = 0; h < RGB; ++h) {
+                        //LOOP ON 3 COLORS
+                        temp[l][o][h] = image[i][j][h];
+                    }
+                }
+            }
+        }
+        else if(a==2){
+            for(int i=0,l=m;i<SIZE/2;++i,++l) {
+                for (int j = SIZE/2, o = k; j < SIZE; ++j, ++o) {
+                    for (int h = 0; h < RGB; ++h) {
+                        temp[l][o][h] = image[i][j][h];
+                    }
+                }
+            }
+
+        }
+        else if(a==3){
+            for(int i=SIZE/2,l=m;i<SIZE;++i,++l) {
+                for (int j = 0, o = k; j < SIZE/2; ++j, ++o) {
+                    for (int h = 0; h < RGB; ++h) {
+                        temp[l][o][h] = image[i][j][h];
+                    }
+                }
+            }
+
+        }
+        else{
+            for(int i=SIZE/2,l=m;i<SIZE;++i,++l) {
+                for (int j = SIZE/2, o = k; j < SIZE; ++j, ++o) {
+                    for (int h = 0; h < RGB; ++h) {
+                        temp[l][o][h] = image[i][j][h];
+                    }
+                }
+            }
+
+        }
+    }
+    for(int i=0;i<SIZE;++i){
+        for(int j=0;j<SIZE;++j) {
+            for (int h = 0; h < RGB; ++h) {
+                image[i][j][h] = temp[i][j][h];
             }
         }
     }
