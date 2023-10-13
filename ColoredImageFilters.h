@@ -35,6 +35,14 @@ void cropImage();
 
 void skewColoredHorizontally(double  angle);
 
+void rotateImage();
+
+void invertImage();
+
+void enlargeImage():
+
+void shuffleImage();
+
 void loadSecondColoredImage(char imageFileName[]);
 
 void saveColoredImage(char imageFileName[]);
