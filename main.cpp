@@ -75,11 +75,47 @@ int main()
         else if(userChoice == '6'){
              rotateImage();
         }
+        else if(userChoice == '7'){
+        }
         else if(userChoice == '8'){
             enlargeImage();
         }
+        else if(userChoice  == '9')
+        {
+            string shrinkScale;
+            cout << "shrink to (1/2), (1/3) or (1/4)? \n";
+            cin >> shrinkScale;
+
+            if(shrinkScale == "1/2") {
+                shrinkImage(2);
+            }
+            else if(shrinkScale == "1/3") {
+                shrinkImage(3);
+            }
+            else if(shrinkScale == "1/4"){
+                shrinkImage(4);
+            }
+            else{
+                cout << "Inavlid Choice, Try agein :) \n";
+            }
+        }
+        else if(userChoice == 'a'){
+            shuffleImage();
+        }
         else if(userChoice == 'b'){
             shuffleImage();
+        }
+        else if(userChoice == 'c') {
+            blurImage();
+        }
+        else if(userChoice == 'd'){
+            cropImage();
+        }
+        else if(userChoice == 'e){
+            skewHorizontally();
+        }
+        else if(userChoice == 'f'){
+            skewVertically();
         }
         else if(userChoice == 'l'){
             char imageName[100];
