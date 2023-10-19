@@ -204,6 +204,7 @@ void lightenColoredImage(){
 //=========================================== Filter 7 =================================================================
 void detectEdges()
 {
+    blackAndWhite();
     int sumR = 0, sumG = 0, sumB = 0;
 
     // Calculate the sum of all pixel values in the image for each color channel
