@@ -655,6 +655,66 @@ void skewColoredHorizontally(double  angle)
         taken += decRate;
     }
 }
+// ============================================ Filter f ===============================================================
+void skewVertically() {
+    unsigned char temp[SIZE][SIZE][3]; // 3D array for RGB color image
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            for (int k = 0; k < RGB; ++k) {
+                temp[i][j][k] = 255; // Initialize new matrix to white
+            }
+        }
+    }
+    double angle;
+    cout << "Enter angle of skewness:"; // Input angle of skewness
+    cin >> angle;
+    int wh_pixels = int(tan((angle * 22) / (180. * 7)) * 256.0); // Calculate angle in radians
+    int start = 256 - wh_pixels; // Detect start point for filling picture
+    double diff = wh_pixels / 256.0; // To make the skewness line
+    double compress = 256.0 / double(start); // Number of pixels that will be compressed
+    double reminder = 0;
+    int size = SIZE;
+    double x = 0;
+    for (int i = 0; i < SIZE; ++i) {
+        int intial = 0;
+        for (int j = max(0, (int)(wh_pixels - x)); j < min(int(size - x), 256); ++j) {
+            int sum[3] = {0}; // Separate sums for each RGB channel
+            int cnt[3] = {0}; // Separate counters for each RGB channel
+
+            for (int l = intial; l < (intial + compress + reminder); ++l) {
+                // Loop starts from the first point until the number of compressed pixels adding to it if there is a decimal
+                for (int k = 0; k < 3; ++k) {
+                    sum[k] += image[l][i][k]; // Add pixels to compress it for each RGB channel
+                }
+                ++cnt[0]; // Calculate the number of compressed pixels
+            }
+            intial += floor(compress + reminder); // Increment intial by compress and reminder if there is a decimal
+
+            for (int k = 0; k < RGB; ++k) {
+                temp[j][i][k] = sum[k] / max(1, cnt[0]); // Store the average of compressed images in the new matrix for each RGB channel
+            }
+
+            if (compress < floor(compress + reminder)) {
+                // If the number of compressed becomes greater than compressed + reminder
+                reminder -= (floor(compress + reminder) - compress);
+                // Decrement it by the last added reminder
+            } else {
+                reminder += (compress - floor(compress));
+                // Else increment by the decimal value
+            }
+        }
+        x += diff;
+        // Add diff to x to decrement it from intial to make the skewness line
+    }
+
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            for (int k = 0; k < RGB; ++k) {
+                image[i][j][k] = temp[i][j][k]; // Copy temp into the image for each RGB channel
+            }
+        }
+    }
+}
 
 
 
