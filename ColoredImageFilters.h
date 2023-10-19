@@ -39,7 +39,7 @@ void rotateImage();
 
 void invertImage();
 
-void enlargeImage():
+void enlargeImage();
 
 void shuffleImage();
 
